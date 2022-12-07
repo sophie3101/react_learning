@@ -1,0 +1,33 @@
+1. create react app: npx create-react-app part1 
+2. go to part 1 folder
+3. npm start. By deault the application ru0ns on localhost port 3000
+4. JSX file looks like HTML, but we are dealing with writing in JavaScript. JSX returned by React components is compiled into javascript
+5. props
+6. try console.log to debug
+
+JavaScript
+- Instead of using push to add new item to array, React prefers to use concat:
+	const t = [1, 2, 3]
+	t.concat(5)
+it will then create new array in which content of old array and new item is added
+- map: t.map( value => value * 2)
+- destructuring: 
+	[a, b] = [ 10,20]
+	[a, b, ...rest] = [10,20, 30 ,40,50]
+	then rest is [30, 40, 50]
+7. to install json server: npm install -g json-server 
+OR 
+npm install json-server --save-dev to install json-server as a development dependency
+8. since react app run on port 3000 by default, to run json server on another port: npx json-server --port 3001 --watch db.json
+However, a global installation is not necessary. From the root directory of your app, we can run the json-server using the command npx:
+
+npx json-server --port 3001 --watch db.json
+
+
+9. fetch(): method fetching resource from network, return a promise 
+10. axio library to communicate bt browser and server: npm install axios
+11. start json-server from the project root : 
+	npm run server
+Then means you have to run the program on two terminal
+12. reponse object contains: data, status code and headers
+13. useEffect Hook allows to perform side effects in components
