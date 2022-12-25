@@ -2,22 +2,16 @@ const Blog = require('../models/blog')
 const User = require('../models/user')
 const testBlogs = [
   {
-    title: 'blog1',
-    author: 'author1',
-    url: 'url1',
-    likes: 10
+    title: "Canonical string reduction",
+    author: "Edsger W. Dijkstra",
+    url: "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html",
+    likes: 12,
   },
   {
-    title: 'blog2',
-    author: 'author2',
-    url: 'url2',
-    likes: 45
-  },
-  {
-    title: 'blog3',
-    author: 'author3',
-    url: 'url3',
-    likes: 4
+    title: "First class tests",
+    author: "Robert C. Martin",
+    url: "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll",
+    likes: 10,
   }
 ]
 

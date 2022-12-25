@@ -20,14 +20,18 @@ router.get('/', async(request, response) => {
 
 
 router.post('/', async (request, response) => {
-  const body = request.body 
-  const token = request.token//getTokenFrom(request)
-
-  const decodedToken = jwt.verify(token, process.env.SECRET)
-  if( !decodedToken.id ){
-    return response.status(401).json({error: 'missing token'})
+  if (!request.user) {
+    return response.status(401).json({ error: 'token missing or invalid' })
   }
-  const user = await User.findById(decodedToken.id) //await User.findById(body.userID)
+  const body = request.body 
+  // const token = request.token//getTokenFrom(request)
+
+  // const decodedToken = jwt.verify(token, process.env.SECRET)
+  // if( !decodedToken.id ){
+  //   return response.status(401).json({error: 'missing token'})
+  // }
+  // const user = await User.findById(decodedToken.id) //await User.findById(body.userID)
+  const user = request.user 
 
   const blog = new Blog({
     title: body.title,
@@ -46,38 +50,41 @@ router.post('/', async (request, response) => {
 } )
 
 router.delete('/:id', async( request, response) => {
-  const token = request.token
-  const decodedToken = jwt.verify(token, process.env.SECRET)
-  if (!decodedToken.id){
-    return response.status(401).json({error: 'missing token'})
+  if (!request.user) {
+    return response.status(401).json({ error: 'token missing or invalid' })
   }
-  const user = await User.findById(decodedToken.id)
-
+  // const token = request.token
+  // const decodedToken = jwt.verify(token, process.env.SECRET)
+  // if (!decodedToken.id){
+  //   return response.status(401).json({error: 'missing token'})
+  // }
+  // const user = await User.findById(decodedToken.id)
+  const user = request.user
   // delete blog
   const blogToDelete = await Blog.findById(request.params.id)
   if (!blogToDelete){
     return response.status(401).json({error: 'blog does not exist'})
   }
 
-  if (blogToDelete.user._id.toString() === user._id.toString()){
-    await Blog.findByIdAndRemove(request.params.id)
-    response.status(204).end()
-  }else{
-    return response.status(401).json({error: 'token does not match'})
+  if (blogToDelete.user._id.toString() !== user._id.toString()){
+    return response.status(401).json({error: 'only creator can delete'})  
   }
-})
-
-
-router.put('/:id', async (request, response) => {
-  const body = request.body
-  const blog = new Blog({
-    likes: body.likes 
-  })
-
-  await Blog.findByIdAndUpdate(request.params._id, blog, {new:true} )
+  await Blog.findByIdAndRemove(request.params.id)
   response.status(204).end()
 })
 
 
+router.put('/:id', async (request, response) => {
+  const blog = request.body
+
+  const updatedBlog = await Blog
+    .findByIdAndUpdate(
+      request.params.id, 
+      blog, 
+      { new: true, runValidators: true, context: 'query' }
+    )
+      
+  response.json(updatedBlog)
+})
 
 module.exports = router

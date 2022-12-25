@@ -1,5 +1,6 @@
 const logger = require('./logger')
 const jwt = require('jsonwebtoken')
+const User = require('../models/user')
 
 const requestLogger = (request, response, next) => {
   logger.info('Method', request.method)
@@ -9,28 +10,19 @@ const requestLogger = (request, response, next) => {
   next()
 }
 
-const tokenExtractor = (request,response, next) => {
+const userExtractor = async(request, response, next) => {
   const authorization = request.get('authorization')
   if ( authorization && authorization.toLowerCase().startsWith('bearer')){
-    request["token"] =  authorization.substring(7)
+    const token =  authorization.substring(7)
+    const decodedToken = jwt.verify(token, process.env.SECRET)
+    
+    if ( decodedToken) {
+      request.user = await User.findById(decodedToken.id)
+    }
+    
   }
-
   next()
 }
-
-// const userExtractor = (request, response, next) => {
-//   const authorization = request.get('authorization')
-//   if ( authorization && authorization.toLowerCase().startsWith('bearer')){
-//     const token =  authorization.substring(7)
-//     const decodedToken = jwt.verify(token, process.env.SECRET)
-//     if( !decodedToken.id ){
-//       next()
-//     }
-//     console.log(decodedToken)
-//     request["user"] = decodedToken
-//   }
-//   next()
-// }
 const unknownEndPoint = (request, response) =>{
   response.status(404).send({error: 'unknown endpoint'})
 }
@@ -53,6 +45,5 @@ module.exports = {
   requestLogger,
   unknownEndPoint,
   errorHandler, 
-  tokenExtractor
-  // userExtractor
+  userExtractor
 }
