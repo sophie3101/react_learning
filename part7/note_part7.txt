@@ -1,0 +1,18 @@
+1. there are libray for UI: Bootstrap, MaterialUI
+2. install boostrap:
+	npm install react-boostrap
+
+then add link to load CSS stylesheet for Bootstrap
+3. webpack: to make react applications ( instead of create-react-app)
+install webpack: 
+	npm install --save-dev webpack webpack-cli
+4. turn into react application:
+	npm install react react-dom
+5. loaders: inform webpack of the files that need to be processed before they are bundled 
+npm install @babel/core babel-loader @babel/preset-react --save-dev
+
+npm install core-js regenerator-runtime: to avoid async await not work on some browser
+
+transpiling: process of transofrming code from one form of Javascript to another 
+6. webpack-dev server:
+`npm install --save-dev webpack-dev-server

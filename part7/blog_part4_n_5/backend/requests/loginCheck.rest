@@ -1,0 +1,28 @@
+
+
+### create user so that you know that password
+POST http://localhost:3001/api/users
+content-type: application/json
+
+{
+    "username": "userForLogging",
+    "name": "whatever",
+    "password": "missy"
+}
+
+#### logging with wrong username
+POST http://localhost:3003/api/login
+content-type: application/json
+
+{
+    "username": "mia",
+    "password": "password"
+} 
+#### 
+POST http://localhost:3003/api/login
+content-type: application/json
+
+{
+    "username": "sophieng",
+    "password": "password"
+}

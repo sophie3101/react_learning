@@ -1,0 +1,59 @@
+
+###
+GET http://localhost:3003/api/blogs
+
+###
+POST http://localhost:3003/api/blogs
+content-type: application/json
+
+{
+    "title": "blogTest",
+    "author": "SON",
+    "url": "testURL2",
+    "likes": "5"
+}
+
+
+###
+POST http://localhost:3003/api/blogs
+content-type: application/json
+
+{
+    "author": "SON",
+    "url": "testURL2",
+    "title": "blog without likes"
+}
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1pYSIsImlkIjoiNjNjZjY5ZjliZjgxMDQ1NzIyNGJmYTFlIiwiaWF0IjoxNjc0NTM3NTEyfQ.Ry7CQtciB5h-coKzXXmxz8z0WhSrY8oEI8eJ9bR5CuM
+
+{
+    "author": "miamia",
+    "url": "www_htlm",
+    "title": "it's a movie",
+    "likes": "1"
+}
+
+###
+DELETE http://localhost:3003/api/blogs/63cf3ec33224773495360db4
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNvcGhpZW5nIiwiaWQiOiI2M2NhMTQ5NDdjNjc3Mzk1NjRkYzRmOGEiLCJpYXQiOjE2NzQ0NTI2NDd9.U_2Fk0Fiu8SMg1F1xh0kXXZkfs3kC4Jq0WbauR-RxUo
+
+###
+PUT http://localhost:3003/api/blogs/63a72a4fda6cc379a48decef
+Content-Type: application/json
+
+{
+    "user": "63ca14947c67739564dc4f8a",
+    "likes": 1,
+    "author": "anotherAuthoer",
+    "title": "blog without likes",
+    "url": "testURL2"
+}
+
+
+
+
+
+

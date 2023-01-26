@@ -1,0 +1,26 @@
+###
+GET http://localhost:3003/api/users
+content-type: application/json
+
+###
+POST http://localhost:3003/api/users
+content-type: application/json
+
+{
+    "username": "mia",
+    "name": "Mia",
+    "password": "password"
+}
+
+
+### for adding user to blog
+POST http://localhost:3001/api/blogs
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJGb3JMb2dnaW5nIiwiaWQiOiI2M2E3MzE2ZjU3NTRmYWIzZWY2YTlkY2EiLCJpYXQiOjE2NzE5MDI4MTF9.f3BU8wBE4Xj1LC48L6VfasM6RAG-pHdBBC68heOaN24
+
+{
+    "author": "SON",
+    "url": "testURL2",
+    "title": "blog without likes",
+    "userID": "63a720845df1556ae6b638cb"
+}
